@@ -7,4 +7,4 @@ const router = Router()
 router.post('/login', employeController.loginEmploye)
 router.post('/create', authMiddleware, employeController.createEmploye)
 
-export default router
+export default router           
