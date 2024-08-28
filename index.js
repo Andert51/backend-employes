@@ -8,9 +8,8 @@ const app = express()
 
 const corsOptions = {
     origin: '*',
-    credentials: true,
-    allowedHeaders: ['Content-type' , 'Authorization' ]
-}
+    optionsSuccessStatus: 200
+}               
 
 app.use(cors(corsOptions)) // Es para que de cualquier medio se pueda acceder a las consultas
 app.use(express.json()) // Alternativa de body parser
