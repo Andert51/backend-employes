@@ -5,8 +5,11 @@ const employeRepository = {
     getEmployeById: async (id) => {
         await employeModel.getEmployeById(id)
     },
+    getEmployeByMail: async (correo) => {
+        return await employeModel.getEmployeByMail(correo)
+    },
     createEmploye: async (employe) => {
-        await employeModel.createEmploye(employe)
+        return await employeModel.createEmploye(employe)
     },
     updateEmploye: async (id, employe) => {
         await employeModel.updateEmploye(id, employe)

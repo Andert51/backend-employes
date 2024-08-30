@@ -5,7 +5,7 @@ dotenv.config()
 
 const authService = {
     hashPassword: (password) => {
-        return bcrypt.hashPassword(password, 10)
+        return bcrypt.hashSync(password, 10)
     },
     comparePassword: (password, hash) => {
         return bcrypt.compareSync(password, hash)
@@ -20,7 +20,7 @@ const authService = {
             {
                 expiresIn: '1h'
             })
-            
+
     }
 
 }

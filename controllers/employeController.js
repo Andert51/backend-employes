@@ -7,9 +7,10 @@ const employeController = {
             const employe = req.body
             employe.contrasena = authService.hashPassword(employe.contrasena)
             const created = await employeRepository.createEmploye(employe)
+            const id = created.id
             res.status(201).json({
                 succes: true,
-                id: created.id
+                id
             })
 
         } catch (error) {
@@ -22,13 +23,13 @@ const employeController = {
     loginEmploye: async (req, res) =>{
         try {
             const {correo, contrasena} = req.body
-            const existMail = await employeRepository.getEmployeById(correo)
-            if(!existMail.exist){
-                res.status(404).json({
+            const existMail = await employeRepository.getEmployeByMail(correo)
+            if(!existMail){
+                return res.status(404).json({
                     succes: false,
                     message: 'Employee does not exist'
                 })
-                }
+            }
             const employe = existMail.data()
             if(!authService.comparePassword(contrasena, employe.contrasena)){
                 res.status(404).json({
@@ -38,16 +39,32 @@ const employeController = {
             }
             const token = authService.generateToken(employe)
             res.status(201).json({
-                succes: true,
+                succes: true, 
                 message: token
             })
         } catch (error){
             res.status(500).json({
                 succes: false,
-                message: error.message
+                message: error.message  
             })
         }
     }
 }
 
+
 export default employeController
+
+//Formato de /create
+// {
+//   "nombre": "Andres",
+//   "apaterno": "Torres",
+//   "amaterno": "Ceja",
+//   "direccion": "Fimee",
+//   "telefono": "3541018755",
+//   "ciudad": "Salamanca",
+//   "estado": "Guanauato",
+//   "correo": "andert@gmail.com",
+//   "noempleado": "1",
+//   "contrasena": "123456",
+//   "perfil": "andert"
+// }
