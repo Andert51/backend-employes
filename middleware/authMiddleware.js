@@ -4,15 +4,19 @@ dotenv.config()
 
 const authMiddleware = (req, res, next) => {
     const token = req.headers['authorization']
-    if (!token) {
+    const valid = token.split(' ') // Para eliminar el Bearer y dejar solo el token encriptado
+    if (!valid[1]) {
         return res.status(500).json({
             success: false,
             message: 'No token provided'
         })
     }
     
-    jwt.verify(token, process.env.SUPER_SECRET, (err, decoded) => {
+    console.log('@Nint token =>', valid)
+
+    jwt.verify(valid[1], process.env.SUPER_KEY, (err, decoded) => {
         if (err) {
+            console.log('JWT error => ', err)
             return res.status(500).json({
                 success: false,
                 message: 'Invalid Token'

@@ -39,13 +39,39 @@ const employeController = {
             }
             const token = authService.generateToken(employe)
             res.status(201).json({
-                succes: true, 
-                message: token
+                token
             })
         } catch (error){
             res.status(500).json({
                 succes: false,
                 message: error.message  
+            })
+        }
+    },
+    getEmploye: async (req, res) => {
+        try {
+            const employeDocs = await employeRepository.getEmployes()
+            if (employeDocs.length === 0){
+                return res.status(404).json({
+                    succes: false,
+                    message: 'No Employee Available'
+                })
+            }
+            console.log('@Nint empleados => ', employeDocs) // Depuracion con los docs de firestore
+            const employes = employeDocs.map((doc) => ({
+                id: doc.id,
+                ...doc.data()
+            }))
+
+            return res.status(201).json({
+                succes: true,
+                message: employes
+            })
+
+        } catch (error) {
+            res.status(500).json({
+                succes: false,
+                message: error.message
             })
         }
     }

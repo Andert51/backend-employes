@@ -20,6 +20,10 @@ const employeModel = {
     },
     deleteEmploye: async (id) => {
         return db.collection('employe').doc(id).delete()
+    },
+    getEmployes: async () => {
+        const employes = await db.collection('employe').get()
+        return employes.docs    
     }
     
 }

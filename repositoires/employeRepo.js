@@ -16,6 +16,9 @@ const employeRepository = {
     },
     deleteEmploye: async (id) => {
         await employeModel.deleteEmploye(id)
+    },
+    getEmployes: async () => {
+       return await employeModel.getEmployes()
     }
 }
 
