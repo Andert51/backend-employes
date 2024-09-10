@@ -15,7 +15,7 @@ const employeRepository = {
         await employeModel.updateEmploye(id, employe)
     },
     deleteEmploye: async (id) => {
-        await employeModel.deleteEmploye(id)
+        return await employeModel.deleteEmploye(id)
     },
     getEmployes: async () => {
        return await employeModel.getEmployes()

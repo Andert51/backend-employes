@@ -74,6 +74,22 @@ const employeController = {
                 message: error.message
             })
         }
+    },
+    deleteEmploye: async (req, res) => {
+        const id = req.params.id
+        try {
+            const deleted = await employeRepository.deleteEmploye(id)
+
+            return res.status(201).json({
+                succes: true,
+                message: deleted
+            })
+        } catch (error) {
+            res.status(500).json({
+                succes: false,
+                message: error.message
+            })
+        }
     }
 }
 
