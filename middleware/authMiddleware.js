@@ -22,7 +22,7 @@ const authMiddleware = (req, res, next) => {
                 message: 'Invalid Token'
             })
         }
-        req.body = decoded
+        // req.body = decoded
         next()
     })
 }
